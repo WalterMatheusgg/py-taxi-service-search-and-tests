@@ -34,7 +34,7 @@ class ManufacturerListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        queryset = Manufacturer.objects.all()
+        queryset = Manufacturer.objects.order_by("name")
         form = SearchForm(self.request.GET)
 
         if form.is_valid():
@@ -75,7 +75,7 @@ class CarListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        queryset = Car.objects.select_related("manufacturer")
+        queryset = Car.objects.select_related("manufacturer").order_by("model")
         form = SearchForm(self.request.GET)
 
         if form.is_valid():
@@ -123,7 +123,7 @@ class DriverListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        queryset = Driver.objects.all()
+        queryset = Driver.objects.order_by("username")
         form = SearchForm(self.request.GET)
 
         if form.is_valid():
